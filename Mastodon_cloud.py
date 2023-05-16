@@ -25,7 +25,7 @@ keywords=[ 'fitness', 'workout', 'exercise', 'gym', 'sports',
 #authentication
 admin= 'admin'
 password ='15011010377'
-url= f'http://{admin}:{password}@172.26.134.44:5984/'
+url= f'http://{admin}:{password}@172.26.135.42:5984/'
 
 #get couchdb instance
 couch= couchdb.Server(url)
