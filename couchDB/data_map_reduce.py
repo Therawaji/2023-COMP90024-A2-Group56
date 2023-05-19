@@ -9,69 +9,69 @@ db_twi = couch['twi_dbs']
 
 # Doc 1
 map_fun1_1 = '''function (doc) {
-  emit(doc.month, 1);
+    emit(doc.month, 1);
 }'''
 
 map_fun1_2 = '''function (doc) {
-  if(doc.month === 5){
-   	emit([doc.month, doc.sport_type], 1);
+    if(doc.month === 5){
+        emit([doc.month, doc.sport_type], 1);
     }
 }'''
 
 map_fun1_3 = '''function (doc) {
-  if(doc.month === 5){
-   	emit([doc.month, doc.event], 1);
-  }
+    if(doc.month === 5){
+        emit([doc.month, doc.event], 1);
+    }
 }
 '''
 
 # Doc 2
 map_fun2 = '''function (doc) {
-  emit(doc.gcc, 1);
+    emit(doc.gcc, 1);
 }'''
 
 # Doc 3
 map_fun3_syd = '''function (doc) {
-  if (doc.gcc === '1gsyd'){
+    if (doc.gcc === '1gsyd'){
     emit([doc.gcc, doc.sport_type], 1);
-  }
+    }
 }'''
 
 map_fun3_mel = '''function (doc) {
-  if (doc.gcc === '2gmel'){
-    emit([doc.gcc, doc.sport_type], 1);
-  }
+    if (doc.gcc === '2gmel'){
+        emit([doc.gcc, doc.sport_type], 1);
+    }
 }'''
 
 map_fun3_bri = '''function (doc) {
-  if (doc.gcc === '3gbri'){
-    emit([doc.gcc, doc.sport_type], 1);
-  }
+    if (doc.gcc === '3gbri'){
+        emit([doc.gcc, doc.sport_type], 1);
+    }
 }'''
 
 # Doc 4
 map_fun4 = '''function (doc) {
-  if (doc.sport_type === 'Ball Sports'){
-    emit([doc.sport_type, doc.event], 1);
-  }
+    if (doc.sport_type === 'Ball Sports'){
+        emit([doc.sport_type, doc.event], 1);
+    }
 }'''
 
 # Doc 5
 map_fun5 = '''function (doc) {
-  emit([doc.sport_type, doc.polarity], 1);
-  }'''
+    emit([doc.sport_type, doc.polarity], 1);
+}'''
 
 # Doc 6
 map_fun6 = '''function (doc) {
-  if(doc.gcc === '2gmel' || doc.gcc === '2rvic'){
-    emit([doc.gcc, doc.sport_type], 1);
-  }
+    if(doc.gcc === '2gmel' || doc.gcc === '2rvic'){
+        emit([doc.gcc, doc.sport_type], 1);
+    }
 }'''
 # Doc 7
 map_fun7 = '''function (doc) {
-  if(doc.gcc === '3gbri'){
-    emit([doc.gcc, doc.sport_type], 1);
-  }
+    if(doc.gcc === '3gbri'){
+        emit([doc.gcc, doc.sport_type], 1);
+    }
 }'''
 
 
@@ -179,7 +179,7 @@ db_vic = couch['vic_sport_dbs']
 
 map_fun6_vic = '''function (doc) {
     emit([doc.gcc, doc.classification], 1);
-  }'''
+    }'''
 
 vic_design_docs = [
     {
@@ -203,7 +203,7 @@ db_bri = couch['brisbane_dbs']
 
 map_fun7_bri = '''function (doc) {
     emit(doc.Classification, doc.Values);
-  }'''
+    }'''
 
 bri_design_docs = [
     {
