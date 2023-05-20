@@ -1,0 +1,87 @@
+---
+#############################################
+#              Common vars                  #
+#############################################
+availability_zone: melbourne-qh2-uom
+instance_network: qh2-uom-internal
+instance_flavor: uom.mse.2c9g
+instance_image: 51036d25-0b24-4dbc-bd08-68eec606b582 # NeCTAR Ubuntu 22.04 LTS (Jammy) amd64 (NVIDIA vGPU)
+instance_key_name: group56_key # ssh private key
+project_working_directory: /Users/waji/Desktop/ansible
+
+#############################################
+#             Security group                #
+#############################################
+security_groups:
+  - name: main-security-group
+    description: "security group for main server"
+    rules:
+      - name: 'Any'
+        protocol: tcp
+        port_range_min: 1
+        port_range_max: 65535
+        remote_ip_prefix: 0.0.0.0/0
+  - name: twit-security-group
+    description: "security group for twit server"
+    rules:
+      - name: 'Any'
+        protocol: tcp
+        port_range_min: 1
+        port_range_max: 65535
+        remote_ip_prefix: 0.0.0.0/0
+  - name: harvest-security-group
+    description: "security group for harvest server"
+    rules:
+      - name: 'Any'
+        protocol: tcp
+        port_range_min: 1
+        port_range_max: 65535
+        remote_ip_prefix: 0.0.0.0/0
+  - name: web-security-group
+    description: "security group for web server"
+    rules:
+      - name: 'Any'
+        protocol: tcp
+        port_range_min: 1
+        port_range_max: 65535
+        remote_ip_prefix: 0.0.0.0/0
+
+
+#############################################
+#                Instance                   #
+#############################################
+instances:
+  - name: main-server
+    security_groups: main-security-group
+    volume_ids: '{{ instance1_volumes|default([]) }}'
+    volumes:
+      - vol_name: volume-main
+        vol_size: 100
+        device: /dev/vdb
+        mountpoint: /data
+  - name: twit-server
+    security_groups: twit-security-group
+    volume_ids: '{{ instance2_volumes|default([]) }}'
+    volumes:
+      - vol_name: volume-static-db
+        vol_size: 100
+        device: /dev/vdb
+        mountpoint: /data
+
+  - name: harvest-server
+    security_groups: harvest-security-group
+    volume_ids: '{{ instance3_volumes|default([]) }}'
+    volumes:
+      - vol_name: volume-dynamic-db
+        vol_size: 100
+        device: /dev/vdb
+        mountpoint: /data
+  
+  - name: web-server
+    security_groups: web-security-group
+    volume_ids: '{{ instance4_volumes|default([]) }}'
+    volumes:
+      - vol_name: volume-web
+        vol_size: 50
+        device: /dev/vdb
+        mountpoint: /data

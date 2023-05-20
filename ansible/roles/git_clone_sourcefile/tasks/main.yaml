@@ -1,0 +1,25 @@
+---
+- name: add github ssh key
+  copy:
+    src: "/Users/waji/Desktop/ansible/keys/git_key"
+    dest: /home/ubuntu/.ssh/git_key
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+# copy GitHub private key to server 
+
+- name: configure ssh to use ansible key for github.com
+  template:
+    src: "/Users/waji/Desktop/ansible/keys/ssh_config"
+    dest: /home/ubuntu/.ssh/config
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+# configure ssh to use ansible key for github.com
+
+- name: clone source code from git
+  git:
+    repo: ssh://git@github.com/Therawaji/2023-COMP90024-A2-Group56.git
+    key_file: /home/ubuntu/.ssh/git_key
+    dest: '/home/ubuntu/2023-COMP90024-A2-Group56'
+# git clone through ssh
