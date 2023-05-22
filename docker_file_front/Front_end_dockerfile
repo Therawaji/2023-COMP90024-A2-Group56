@@ -1,0 +1,22 @@
+FROM node:18
+
+WORKDIR /app
+
+COPY front_end_file/package.json .
+
+RUN npm install
+
+COPY front_end_file/ . 
+
+RUN chmod +x node_modules/.bin/vue-cli-service
+
+RUN npm run build
+
+RUN npm install -g serve
+
+CMD ["serve", "-s", "dist", "-l", " 8080"]
+
+
+
+
+
