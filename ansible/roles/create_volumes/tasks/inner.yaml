@@ -1,0 +1,39 @@
+---
+- name: Create volumes
+  os_volume:
+    display_name: '{{ item.vol_name }}'
+    size: '{{ item.vol_size }}'
+    availability_zone: '{{ availability_zone }}'
+    wait: yes
+    timeout: 600
+    state: present
+  loop: '{{ outer_item.volumes }}'
+  register: os_vol
+
+- debug:
+    msg: "Volumes {{os_vol}} has been created."
+
+
+- name: Create a list of volume Ids | main-server
+  set_fact:
+    instance1_volumes: "{{ instance1_volumes|default([]) + [ item.id ] }}"
+  loop: "{{ os_vol.results }}"
+  when: outer_item.name == "main-server"
+
+- name: Create a list of volume Ids | twit-server
+  set_fact:
+    instance2_volumes: "{{ instance2_volumes|default([]) + [ item.id ] }}"
+  loop: "{{ os_vol.results }}"
+  when: outer_item.name == "twit-server"
+
+- name: Create a list of volume Ids | harvest-server
+  set_fact:
+    instance3_volumes: "{{ instance3_volumes|default([]) + [ item.id ] }}"
+  loop: "{{ os_vol.results }}"
+  when: outer_item.name == "harvest-server"
+
+- name: Create a list of volume Ids | web-server
+  set_fact:
+    instance4_volumes: "{{ instance4_volumes|default([]) + [ item.id ] }}"
+  loop: "{{ os_vol.results }}"
+  when: outer_item.name == "web-server"

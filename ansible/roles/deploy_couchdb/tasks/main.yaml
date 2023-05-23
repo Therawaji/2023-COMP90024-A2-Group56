@@ -1,0 +1,35 @@
+- name: Set permissions for /data directory
+  become: yes
+  ansible.builtin.file:
+    path: "/data"
+    mode: "0777"
+
+- name: Ensure /data/couchdb directory exists
+  become: yes
+  ansible.builtin.file:
+    path: "/data/couchdb"
+    state: directory  
+
+- name: Start a container with a couchdb
+  become: yes
+  docker_container:
+    name: "{{ couchdb_container_name}}"
+    image: "{{ couchdb_image }}"
+    ports:
+      - "5984:5984"
+      - "9100:9100"
+      - "4369:4369"
+    volumes:
+      - "/data/couchdb:/opt/couchdb/data"
+    env:
+      COUCHDB_PASSWORD: "{{ couchdb_pass }}"
+      COUCHDB_USER: "{{ couchdb_user }}"
+      NODENAME: "{{ ansible_host }}"
+      COUCHDB_SECRET: "{{ couchdb_secret }}"
+
+- name: Wait for CouchDB to start
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 5984
+    delay: 10
+    timeout: 60

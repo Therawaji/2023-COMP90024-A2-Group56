@@ -1,0 +1,10 @@
+---
+- name: Start Harvest
+  shell:
+    cmd: "nohup python3 /home/ubuntu/2023-COMP90024-A2-Group56/harvest_couchdb.py > myspider1.log &"
+    creates: myspider1.log
+
+- name: Start Flask
+  shell:
+    cmd: "nohup python3 /home/ubuntu/2023-COMP90024-A2-Group56/app.py > myspider2.log &"
+    creates: myspider2.log

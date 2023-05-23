@@ -1,0 +1,19 @@
+---
+- name: Build Docker image
+  become: yes
+  docker_image:
+    name: my-frontend-app
+    build:
+      path: /home/ubuntu/2023-COMP90024-A2-Group56/docker_file_front/
+      dockerfile: Front_end_dockerfile
+    source: build
+
+- name: Run Docker container
+  become: yes
+  docker_container:
+    name: my-frontend-app-container
+    image: my-frontend-app
+    state: started
+    published_ports:
+      - "8080:8080"
+

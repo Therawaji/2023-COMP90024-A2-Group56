@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars_files:
+    - host_vars/local_vars.yaml
+  gather_facts: true
+
+  roles:
+    - role: create_volumes
+    - role: create_security_groups
+    - role: create_instances
