@@ -14,25 +14,25 @@ ms_couch = couchdb.Server(ms_url)
 
 
 cor={'1gsyd': 'Great Sydney', '2gmel': 'Great Melbourne',
-    '3gbri': 'Great Brisbane', '4gade': 'Great Adelaide',
-    '5gper': 'Great Perth', '6ghob': 'Great Hobart',
-    '7gdar': 'Great Darwin', '8acte': 'Australian Capital \n Territory',
-    '9oter': 'Other'
-    }
+     '3gbri': 'Great Brisbane', '4gade': 'Great Adelaide',
+     '5gper': 'Great Perth', '6ghob': 'Great Hobart',
+     '7gdar': 'Great Darwin', '8acte': 'Australian Capital \n Territory',
+     '9oter': 'Other'
+     }
 
 rev_cor = {'Great Sydney':'1gsyd', 'Great Melbourne':'2gmel',
-    'Great Brisbane': '3gbri', 'Great Adelaide': '4gade',
-    'Great Perth': '5gper', 'Great Hobart': '6ghob',
-    'Great Darwin': '7gdar' , 'Australian Capital \n Territory': '8acte',
-    'Other': '9oter'
-    }
+     'Great Brisbane': '3gbri', 'Great Adelaide': '4gade',
+     'Great Perth': '5gper', 'Great Hobart': '6ghob',
+     'Great Darwin': '7gdar' , 'Australian Capital \n Territory': '8acte',
+     'Other': '9oter'
+     }
 
 month = {'2':'Feb', '3':'Mar', '4':'Apr', '5':'May',
-        '6':'Jun', '7':'Jul', '8':'Aug'}
+         '6':'Jun', '7':'Jul', '8':'Aug'}
 
 cities = {'Melbourne': '2gmel','Sydney': '1gsyd', 'Perth': '5gper',
-        'Brisbane': '3gbri', 'Adelaide': '4gade', 'Darwin': '7gdar',
-        'Hobart': '6ghob', 'Australian Capital Territory': '8acte'}
+          'Brisbane': '3gbri', 'Adelaide': '4gade', 'Darwin': '7gdar',
+          'Hobart': '6ghob', 'Australian Capital Territory': '8acte'}
 
 
 app = Flask(__name__)
@@ -68,7 +68,40 @@ def view2():
             dict['value'] = rows['value']
             dict['name'] = cor[rows['_id']]
             return_list.append(dict)
-    return return_list
+    db1 = couch['view3_syd']
+    db2 = couch['view3_mel']
+    db3 = couch['view3_bri']
+    r_list = [['']]
+    for id in db1:
+        if not id[2:7] in r_list[0]:
+            r_list[0].append(id[2:7])
+        r_list.append([id[11:-2]])
+    i = 1
+    for id in db1:
+        r_list[i].append(db1[id]['value'])
+        i = i + 1
+    i = 1
+    for id in db2:
+        if not id[2:7] in r_list[0]:
+            r_list[0].append(id[2:7])
+        r_list[i].append(db2[id]['value'])
+        i = i + 1
+    i = 1
+    for id in db3:
+        if not id[2:7] in r_list[0]:
+            r_list[0].append(id[2:7])
+        r_list[i].append(db3[id]['value'])
+        i = i + 1
+    db4 = couch['view4_ball_event']
+    r_list_4 = []
+    for id in db4:
+        if id[17:-2] != 'None':
+            dict = {}
+            dict['value'] = db4[id]['value']
+            dict['name'] = id[17:-2]
+            r_list_4.append(dict)
+
+    return [return_list, r_list[:-1], r_list_4]
 
 
 @app.route('/view5')
@@ -85,7 +118,24 @@ def view5():
                 pros.append(db[id]['value'])
             elif id[-10:-2] == 'negative':
                 cons.append(db[id]['value'])
-    return [name_list, pros, cons]
+    l1 = [name_list, pros, cons]
+    db1 = ms_couch['vmas1_sport_type']
+    db2 = ms_couch['vmas2_positive_sport_type']
+    n_list = []
+    t_list = []
+    p_list = []
+    for rows in db1:
+        if db1[rows]['id'] != 'None':
+            n_list.append(db1[rows]['id'])
+            t_list.append(db1[rows]['value'])
+    for rows in db2:
+        if db2[rows]['id'] != 'None':
+            p_list.append(db2[rows]['value'])
+    c_list = []
+    for i in range(len(t_list)):
+        c_list.append(t_list[i]-p_list[i])
+    l2 = [n_list, c_list, p_list]
+    return [l1, l2]
 
 
 @app.route('/view6')
@@ -121,18 +171,34 @@ def view1():
             dict['itemSytle'] = {'color': '#a90000'}
             l1.append(dict)
     event_list = []
+    node_list = [{'name': "Total"}]
     for id in db2:
         n_id = id[5:-2]
         if n_id != 'None':
             event_list.append({'value': db2[id]['value'],
-                            'name': n_id})
+                               'name': n_id})
+            node_list.append({'name': n_id})
     type_list = []
     for id in db3:
         n_id = id[5:-2]
-        type_list.append({'value': db3[id]['value'],
-                        'name': n_id})
-    type_list = type_list[:-1]
-    return [l1, event_list, type_list]
+        if n_id != 'on':
+            type_list.append({'value': db3[id]['value'],
+                               'name': n_id})
+            node_list.append({'name': n_id})
+    link_list = []
+    for item in type_list:
+        dict = {
+            "source": "Total", "target": item['name'],
+            "value": item['value']
+        }
+        link_list.append(dict)
+    for item2 in event_list:
+        dict = {
+            "source": "Ball Sports", "target": item2['name'],
+            "value": item2['value']
+        }
+        link_list.append(dict)
+    return [l1, node_list, link_list]
 
 
 
@@ -151,14 +217,66 @@ def view4():
 
 @app.route('/view7')
 def view7():
+    list1 = view7_1()
+    list2 = view7_2()
+    return [list1, list2]
+
+
+def view7_1():
+    db = couch['view6_vic_type']
+    name_list = []
+    gm_list = []
+    n_list = []
+    for id in db:
+        if id[-5:-1] != 'None':
+            if id[2:6] != 'None':
+                if not id[11:-2] in name_list:
+                    name_list.append(id[11:-2])
+                    dict = {}
+                    dict['name'] = id[11:-2]
+                    dict['max'] = 0.8
+                    n_list.append(dict)
+                if id[2:7] == '2gmel':
+                    gm_list.append(db[id]['value'])
+    v_list2 = []
+    db2 = couch['view3_mel']
+    for gen in name_list:
+        for id in db2:
+            if id[11:-2] == gen:
+                v_list2.append(db2[id]['value'])
+    pl1 = []
+    pl2 = []
+    for i in range(len(n_list)):
+        pl1.append(gm_list[i] / sum(gm_list))
+        pl2.append(v_list2[i] / sum(v_list2))
+    return [n_list, pl1, pl2]
+
+
+def view7_2():
     db = couch['view7_bri']
     n_list = []
     v_list = []
+    genre_name = []
     for id in db:
         if id != 'None':
             v_list.append(db[id]['value'])
-            n_list.append(id)
-    return [n_list, v_list]
+            dict = {}
+            dict['name'] = id
+            genre_name.append(id)
+            dict['max'] =0.7
+            n_list.append(dict)
+    v_list2 = []
+    db2 = couch['view3_bri']
+    for gen in genre_name:
+        for id in db2:
+            if id[11:-2] == gen:
+                v_list2.append(db2[id]['value'])
+    pl1 = []
+    pl2 = []
+    for i in range(len(n_list)):
+        pl1.append(v_list[i]/sum(v_list))
+        pl2.append(v_list2[i]/sum(v_list2))
+    return [n_list, pl1, pl2]
 
 
 @app.route('/view3')
@@ -196,12 +314,12 @@ def genre_by_month():
     db2 = couch['view4_month_mel']
     db3 = couch['view4_month_syd']
     r_list = [['Aug', []],
-            ['Jul', []],
-            ['Jun', []],
-            ['May', []],
-            ['Apr', []],
-            ['Mar', []],
-            ['Feb', []]]
+              ['Jul', []],
+              ['Jun', []],
+              ['May', []],
+              ['Apr', []],
+              ['Mar', []],
+              ['Feb', []]]
     i = 6
     for id in db1:
         r_list[i][1].append(db1[id]['value'])
@@ -282,13 +400,13 @@ def ms_view1():
     n_list = []
     t_list = []
     p_list = []
-    for id in db1:
-        if id != 'None':
-            n_list.append(id)
-            t_list.append(db1[id]['value'])
-    for id in db2:
-        if id != 'None':
-            p_list.append(db2[id]['value'])
+    for rows in db1:
+        if db1[rows]['id'] != 'None':
+            n_list.append(db1[rows]['id'])
+            t_list.append(db1[rows]['value'])
+    for rows in db2:
+        if db2[rows]['id'] != 'None':
+            p_list.append(db2[rows]['value'])
     return [n_list, t_list, p_list]
 
 
@@ -296,11 +414,11 @@ def ms_view1():
 def ms_view2():
     db = ms_couch['vmas3_sport_event']
     r_list = []
-    for id in db:
-        if id != 'None':
+    for rows in db:
+        if db[rows]['id'] != 'None':
             dict = {}
-            dict['value'] = db[id]['value']
-            dict['name'] = id
+            dict['value'] = db[rows]['value']
+            dict['name'] = db[rows]['id']
             r_list.append(dict)
     return r_list
 

@@ -1,9 +1,13 @@
 <template>
     <div class="title">
-        <h3> View7 - Brisbane </h3>
+        <h3> Scenario 4 - Comparison of infrastructure and frequenct of Tweets </h3>
     </div>
-    <div>
-        <div ref="chart" style="height: 500px"></div>
+    <div class="c1">
+        <div ref="chart1" style="height: 500px"></div>
+        <ul>{{string}}</ul>
+    </div>
+    <div class="c2">
+        <div ref="chart2" style="height: 500px"></div>
         <ul>{{string}}</ul>
     </div>
 </template>
@@ -20,7 +24,8 @@ export default {
     data() {
         return {
             string: '',
-            chart: null,
+            chart1: null,
+            chart2: null,
             chartData: []
         };
     },
@@ -30,41 +35,71 @@ export default {
                 const response = await axios.get('http://172.26.135.65:5000/view7');
                 console.log(response.data);
                 this.chartData = response.data;
-                this.updateChart();
+                this.updateChart1();
+                this.updateChart2();
             } catch (error) {
                 console.log(error);
             }
         },
-        updateChart() {
-            this.chart.setOption(
+        updateChart1() {
+            this.chart1.setOption(
                 {
                 title: {
+                    text: 'Radar Chart of Melbourne'
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                    type: 'shadow'
-                    }
+                legend: {
+                    data: ['Percent of infrastructure', 'Percent of tweets']
                 },
-                legend: {},
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'value',
-                    boundaryGap: [0, 0.01]
-                },
-                yAxis: {
-                    type: 'category',
-                    data: this.chartData[0]
+                radar: {
+                    // shape: 'circle',
+                    indicator: this.chartData[0][0]
                 },
                 series: [
                     {
-                    type: 'bar',
-                    data: this.chartData[1]
+                    name: 'infra vs tweets',
+                    type: 'radar',
+                    data: [
+                        {
+                        value: this.chartData[0][1],
+                        name: 'Percent of infrastructure'
+                        },
+                        {
+                        value: this.chartData[0][2],
+                        name: 'Percent of tweets'
+                        }
+                    ]
+                    }
+                ]
+                }
+            );
+        },
+        updateChart2() {
+            this.chart2.setOption(
+                {
+                title: {
+                    text: 'Radar Chart of Brisbane'
+                },
+                legend: {
+                    data: ['Percent of infrastructure', 'Percent of tweets']
+                },
+                radar: {
+                    // shape: 'circle',
+                    indicator: this.chartData[1][0]
+                },
+                series: [
+                    {
+                    name: 'infra vs tweets',
+                    type: 'radar',
+                    data: [
+                        {
+                        value: this.chartData[1][1],
+                        name: 'Percent of infrastructure'
+                        },
+                        {
+                        value: this.chartData[1][2],
+                        name: 'Percent of tweets'
+                        }
+                    ]
                     }
                 ]
                 }
@@ -72,7 +107,8 @@ export default {
         },
     },
     mounted() {
-        this.chart = echarts.init(this.$refs.chart);
+        this.chart1 = echarts.init(this.$refs.chart1);
+        this.chart2 = echarts.init(this.$refs.chart2);
         this.getData1();
     },
 }
@@ -80,6 +116,14 @@ export default {
 
 <style lang="scss" scoped>
 .title {
+    margin-top: 40px;
+}
+.c1 {
+    margin-left: 40px;
+    margin-top: 40px;
+}
+.c2 {
+    margin-left: 40px;
     margin-top: 40px;
 }
 </style>

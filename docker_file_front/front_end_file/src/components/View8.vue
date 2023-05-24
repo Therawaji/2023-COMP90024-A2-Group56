@@ -1,9 +1,9 @@
 <template>
     <div class="title">
-        <h3> View8 - # of Tweets by gcc against income and life </h3>
+        <h3> Scenario 5 - # of Tweets by gcc against income and life </h3>
     </div>
     <div>
-        <div ref="chart" style="height: 500px; width: 1200px"></div>
+        <div ref="chart" style="height: 500px"></div>
         <ul>{{string}}</ul>
     </div>
 </template>

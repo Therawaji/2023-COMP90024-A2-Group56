@@ -14,43 +14,23 @@
             </router-link>
             <router-link class="button" to="/view1">
                 <span class="material-icons">label</span>
-                <span class="text">View1</span>
+                <span class="text">S1_overall</span>
             </router-link>
             <router-link class="button" to="/view2">
                 <span class="material-icons">label</span>
-                <span class="text">View2</span>
-            </router-link>
-            <router-link class="button" to="/view3">
-                <span class="material-icons">label</span>
-                <span class="text">View3</span>
-            </router-link>
-            <router-link class="button" to="/view4">
-                <span class="material-icons">label</span>
-                <span class="text">View4</span>
+                <span class="text">S2_gcc</span>
             </router-link>
             <router-link class="button" to="/view5">
                 <span class="material-icons">label</span>
-                <span class="text">View5</span>
-            </router-link>
-            <router-link class="button" to="/view6">
-                <span class="material-icons">label</span>
-                <span class="text">View6</span>
+                <span class="text">S3_sentiment</span>
             </router-link>
             <router-link class="button" to="/view7">
                 <span class="material-icons">label</span>
-                <span class="text">View7</span>
+                <span class="text">S4_infrastructure</span>
             </router-link>
             <router-link class="button" to="/view8">
                 <span class="material-icons">label</span>
-                <span class="text">View8</span>
-            </router-link>
-            <router-link class="button" to="/ms_view1">
-                <span class="material-icons">label</span>
-                <span class="text">Mastodon1</span>
-            </router-link>
-            <router-link class="button" to="/ms_view2">
-                <span class="material-icons">label</span>
-                <span class="text">Mastodon2</span>
+                <span class="text">S5_income/life</span>
             </router-link>
         </div>
     </aside>

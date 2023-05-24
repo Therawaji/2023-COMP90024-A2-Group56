@@ -1,16 +1,14 @@
 <template>
     <div class="title">
-        <h3> View1 - Tweets by Month </h3>
+        <h3> Scenario 1 - Overall analysis on Tweets </h3>
     </div>
     <div class="tot">
-        <div ref="chart1" style="height: 400px;"></div>
+        <div ref="chart1" style="height: 500px;"></div>
         <ul>{{string1}}</ul>
-        <div class="char23">
-            <div ref="chart2" style="height: 300px;"></div>
-            <ul>{{string2}}</ul>
-            <div ref="chart3" style="height: 300px;"></div>
-            <ul>{{string3}}</ul>
-        </div>
+    </div>
+    <div class="char23">
+        <div ref="chart2" style="height: 500px;"></div>
+        <ul>{{string2}}</ul>
     </div>
 </template>
 
@@ -26,11 +24,9 @@ export default {
     data() {
         return {
             string1: 'Tweets by month',
-            string2: '# of events in May',
-            string3: '# of types in May',
+            string2: 'Sankey plot of events in May',
             chart1: null,
             chart2: null,
-            chart3: null,
             chartData1: [],
         };
     },
@@ -42,7 +38,6 @@ export default {
                 this.chartData1 = response.data;
                 this.updateChart1();
                 this.updateChart2();
-                this.updateChart3();
             } catch (error) {
                 console.log(error);
             }
@@ -81,69 +76,35 @@ export default {
         },
         updateChart2() {
             this.chart2.setOption(
-                {
+            {
                 title: {
                 },
                 tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left'
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
                 },
                 series: [
                     {
-                    name: 'Access From',
-                    type: 'pie',
-                    radius: '50%',
+                    type: 'sankey',
+                    emphasis: {
+                        focus: 'adjacency'
+                    },
+                    nodeAlign: 'left',
                     data: this.chartData1[1],
-                    emphasis: {
-                        itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
+                    links: this.chartData1[2],
+                    lineStyle: {
+                        color: 'source',
+                        curveness: 0.5
                     }
                     }
                 ]
-                }
-            );
-        },
-        updateChart3() {
-            this.chart3.setOption(
-                {
-                title: {
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left'
-                },
-                series: [
-                    {
-                    name: 'Access From',
-                    type: 'pie',
-                    radius: '50%',
-                    data: this.chartData1[2],
-                    emphasis: {
-                        itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    }
-                    }
-                ]
-                }
-            );
+            }
+            )
         },
     },
     mounted() {
         this.chart1 = echarts.init(this.$refs.chart1);
         this.chart2 = echarts.init(this.$refs.chart2);
-        this.chart3 = echarts.init(this.$refs.chart3);
         this.getData1();
     },
 }
@@ -151,8 +112,9 @@ export default {
 
 <style lang="scss" scoped>
 .char23 {
-    margin-top: 40px;
+    margin-top: 60px;
     line-height: 60px;
+    margin-left: 80px;
 }
 .title {
     margin-top: 40px;
