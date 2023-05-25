@@ -12,7 +12,7 @@ Huating Ji (Student ID: 1078362)
 We have developed a cloud computing-based project that provides an integrated analysis of various data sources, including Twitter and Mastodon, focusing on the theme of "Data-Driven Urban Sports Development and Societal Prosperity". The report offers a comprehensive overview of the system's overall design, an in-depth explanation of the utilized technologies, methods of data collection, processing, storage, and presentation, as well as an outline of the team collaboration and communication throughout the system's development process.
 
 # System Architecture
-![Uploading Untitled-导出.png…]()
+![Untitled-导出](https://github.com/Therawaji/2023-COMP90024-A2-Group56/assets/82218221/bd28fc34-7de2-4f0c-a293-1b6a665e9715)
 
 
 # Main Findings
