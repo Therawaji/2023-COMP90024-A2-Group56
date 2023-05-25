@@ -1,10 +1,15 @@
 # Group56 Team members:
 
 Ziyi Wang (Student ID: 1166087)
+
 Zhou Zhou (Student ID: 1234764)
+
 Xiangyi He (Student ID: 1166146)
+
 Boyu Pan (Student ID: 1319288)
+
 Huating Ji (Student ID: 1078362)
+
 # Directory Structure
 # original data: sudo original data
 You will find the  original data of life expectancy under `sudo original data/abs_life_tables_sa4_2010_2019-7439425676767672303.csv`.
