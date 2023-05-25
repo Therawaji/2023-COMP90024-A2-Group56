@@ -164,12 +164,13 @@ def view1():
     db3 = couch['view1_month_type']
     l1 = []
     for id in db1:
-        l1.append(db1[id]['value'])
-        if id == '5':
+        if id == '6':
             dict = {}
             dict['value'] = db1[id]['value']
             dict['itemSytle'] = {'color': '#a90000'}
             l1.append(dict)
+        else:
+            l1.append(db1[id]['value'])
     event_list = []
     node_list = [{'name': "Total"}]
     for id in db2:
