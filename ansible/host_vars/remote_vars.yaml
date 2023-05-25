@@ -1,14 +1,9 @@
 ---
-#############################################
-#                  Common                   #
-#############################################
 project_working_directory: /Users/waji/Desktop/ansible
 proxy_address: http://wwwproxy.unimelb.edu.au:8000
 remote_working_directory: /home/ubuntu/2023-COMP90024-A2-Group56
 
-#############################################
-#                 CouchDB                   #
-#############################################
+# Couchdb
 couchdb_version: 3.1.1
 couchdb_share: 4
 couchdb_replica: 3

@@ -3,5 +3,5 @@
     - host_vars/remote_vars.yaml
   gather_facts: true
   roles:
-    # - role: back_end
+    - role: back_end
     - role: harvest_and_flask_start

@@ -1,7 +1,6 @@
 ---
-#############################################
-#              Common vars                  #
-#############################################
+# Common vars
+
 availability_zone: melbourne-qh2-uom
 instance_network: qh2-uom-internal
 instance_flavor: uom.mse.2c9g
@@ -9,9 +8,7 @@ instance_image: 51036d25-0b24-4dbc-bd08-68eec606b582 # NeCTAR Ubuntu 22.04 LTS (
 instance_key_name: group56_key # ssh private key
 project_working_directory: /Users/waji/Desktop/ansible
 
-#############################################
-#             Security group                #
-#############################################
+# Security Groups
 security_groups:
   - name: main-security-group
     description: "security group for main server"
@@ -47,9 +44,7 @@ security_groups:
         remote_ip_prefix: 0.0.0.0/0
 
 
-#############################################
-#                Instance                   #
-#############################################
+# Instances
 instances:
   - name: main-server
     security_groups: main-security-group

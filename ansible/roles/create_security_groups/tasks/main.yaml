@@ -1,7 +1,5 @@
 ---
-#############################################
-#          Create a security group          #
-#############################################
+# Create Security Groups
 - name: Create a security group
   os_security_group:
     name: '{{ item.name }}'
@@ -17,9 +15,7 @@
 - debug:
     msg: "Security group(s) {{ sg_names }} has been created."
 
-#############################################
-#        Create security group rules        #
-#############################################
+# Creat Ruls
 - include_tasks: inner.yaml
   loop: '{{ security_groups }}'
   loop_control:
