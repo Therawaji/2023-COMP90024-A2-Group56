@@ -15,7 +15,7 @@ We have developed a cloud computing-based project that provides an integrated an
 ![Untitled-导出](https://github.com/Therawaji/2023-COMP90024-A2-Group56/assets/82218221/3178b19d-d4f4-416c-9b58-5c8eb9938fca)
 
 # Main Findings
-our analysis of sports-related tweets and additional relevant data reveals significant insights into the social and cultural dimensions of sports in Australia. Events such as the Australian Football League are particularly popular, suggesting they bring considerable value in terms of participation and discussion. 
+Our analysis of sports-related tweets and additional relevant data reveals significant insights into the social and cultural dimensions of sports in Australia. Events such as the Australian Football League are particularly popular, suggesting they bring considerable value in terms of participation and discussion. 
 
 Furthermore, the findings suggest that cities with more prosperous economies tend to prioritize sports, with corresponding increases in sports-related tweets. This suggests a positive relationship between economic prosperity and sports engagement. However, discrepancies exist between the types of sports facilities available and the sports preferences of residents in certain cities, indicating areas for potential improvement in resource allocation.
 
@@ -24,10 +24,10 @@ The sentiment analysis also demonstrates a positive public reception towards cer
 Overall, this analysis reveals the multifaceted nature of sports engagement in Australia, highlighting the potential of social media data to inform sports event planning, city infrastructure development, and economic strategies. Future research and policy should continue to explore these trends, and consider the implications for public health, community engagement, and economic development.
 
 # Youtube Link
-Deployment:https://youtu.be/zUpNJwxNqi4\
-couchdb:https://youtu.be/tfrQl1Nw4JI\
-harvest:https://youtu.be/BI8olkuhTpI\
-scenario analysis and web present: https://youtu.be/g2X4f6JC3G8\
+Deployment:https://youtu.be/zUpNJwxNqi4 \
+couchdb:https://youtu.be/tfrQl1Nw4JI \
+harvest:https://youtu.be/BI8olkuhTpI \
+scenario analysis and web present: https://youtu.be/g2X4f6JC3G8
 
 Playlist:https://www.youtube.com/playlist?list=PL1HrVuzo8q9o-hTLw40Vs4LLl9ySjQCRR
 
