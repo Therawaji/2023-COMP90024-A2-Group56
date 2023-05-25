@@ -6,6 +6,14 @@
 # Boyu Pan (Student ID: 1319288)
 # Huating Ji (Student ID: 1078362)
 
+# README: instructions on flasl
+# 1. Install needed package:
+# pip install flask
+# pip install pandas
+# pip install couchdb
+# 2. Run flask
+# python app.py
+
 from flask import Flask, render_template, request, redirect, Response
 import pandas as pd
 from flask_cors import CORS
