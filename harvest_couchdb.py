@@ -1,3 +1,12 @@
+# Group56 Team members:
+
+# Ziyi Wang (Student ID: 1166087)
+# Zhou Zhou (Student ID: 1234764)
+# Xiangyi He (Student ID: 1166146)
+# Boyu Pan (Student ID: 1319288)
+# Huating Ji (Student ID: 1078362)
+
+
 import couchdb
 from mastodon import Mastodon, StreamListener
 import json
@@ -87,22 +96,22 @@ keywords=[ 'fitness', 'workout', 'exercise', 'gym', 'sports',
     'Bathurst 1000', 'The Great Race', 'Gold Coast Marathon', 'GCM', 'Noosa Triathlon', 'Noosa Tri', 'Ironman Australia', 'Ironman Oz',
     'swimming australia', 'v8supercars']
 
-#authentication
+# authentication
 admin= 'admin'
 password ='15011010377'
 url= f'http://{admin}:{password}@172.26.135.65:5984/'
 
-#get couchdb instance
+# get couchdb instance
 couch= couchdb.Server(url)
 
-#indicate the db name
+# indicate the db name
 db_name= 'mastodon_dbs'
 if db_name not in couch:
     db=couch.create(db_name)
 else:
     db=couch[db_name]
     
-#optional, better not hardcode here
+# optional, better not hardcode here
 token='bUaCd-Fd8AP6XbKdopzA-VwT72HDfnGtPsfBP-NVxQA'
 m= Mastodon(
     #your server here
@@ -110,10 +119,10 @@ m= Mastodon(
     access_token=token
 )
 
-#listen on the timeline
+# listen on the timeline
 class Listener(StreamListener):
 
-    #called when receiving new post or status update
+    # called when receiving new post or status update
     def on_update(self,status):
         # do sth
         json_str =json.dumps(status, indent=2,sort_keys=True,default=str)
@@ -129,8 +138,8 @@ class Listener(StreamListener):
                 text=d["content"]
                 blob = TextBlob(text)
                 sentiment = blob.sentiment
-                polarity = sentiment.polarity  # 情感极性 [-1.0, 1.0]
-                subjectivity = sentiment.subjectivity  # 主观性 [0.0, 1.0]
+                polarity = sentiment.polarity 
+                subjectivity = sentiment.subjectivity 
                 if polarity>0:
                     sorted_d['polarity']="positive"
                 else:
@@ -195,8 +204,6 @@ while True:
     try:
         m.stream_public(Listener())
     except Exception as e:
-        # print(f"Error occurred: {str(e)}")
         time.sleep(10)  # Wait for a while before retrying
 
-# m.stream_public(Listener())
 

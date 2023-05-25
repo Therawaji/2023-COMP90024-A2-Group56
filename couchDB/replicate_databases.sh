@@ -1,3 +1,11 @@
+# Group56 Team members:
+
+# Ziyi Wang (Student ID: 1166087)
+# Zhou Zhou (Student ID: 1234764)
+# Xiangyi He (Student ID: 1166146)
+# Boyu Pan (Student ID: 1319288)
+# Huating Ji (Student ID: 1078362)
+
 #!/bin/bash
 
 # Run the script to upload twi data to main CouchDB

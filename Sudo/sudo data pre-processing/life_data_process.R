@@ -1,10 +1,10 @@
-#Group56 Team members:
+# Group56 Team members:
 
-#Ziyi Wang (Student ID: 1166087)
-#Zhou Zhou (Student ID: 1234764)
-#Xiangyi He (Student ID: 1166146)
-#Boyu Pan (Student ID: 1319288)
-#Huating Ji (Student ID: 1078362)
+# Ziyi Wang (Student ID: 1166087)
+# Zhou Zhou (Student ID: 1234764)
+# Xiangyi He (Student ID: 1166146)
+# Boyu Pan (Student ID: 1319288)
+# Huating Ji (Student ID: 1078362)
 
 df <- read.csv("sudo original data/abs_life_tables_sa4_2010_2019-7439425676767672303.csv")
 code_name <- read.csv("sudo original data/sa4 code.csv")
