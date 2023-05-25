@@ -24,9 +24,9 @@ You will find the  original data of greater capital city name under `sudo origin
 
 You will find the  original data of Victoria sports and entertainment facility under `sudo original data/vic_sport_and_recreation_2015-679030468100113511.csv`.
 # preprocessing data: sudo data pre-processing
--`Brisbane data.py` pre-process Brisbane sports and entertainment facility, save to json file.
+-`Brisbane data.py` pre-processing Brisbane sports and entertainment facility, save to json file.
 
--`income annual1.py` pre-process the annual income of each capital city, save to json file
+-`income annual1.py` pre-processing the annual income of each capital city, save to json file
 
 -`life_data_process.R` read the original life expectancy data and pre-processing
 
