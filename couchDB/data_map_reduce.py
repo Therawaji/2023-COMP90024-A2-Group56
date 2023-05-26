@@ -83,8 +83,7 @@ map_fun7 = '''function (doc) {
   }
 }'''
 
-
-# 设计文档列表
+# Design doc
 twi_design_docs = [
     # Doc 1
     {
